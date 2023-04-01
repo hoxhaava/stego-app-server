@@ -51,6 +51,7 @@ router.post('/signin', async (req, res) => {
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
+        await User.updateAuthToken(user.id, user.auth_token);
         await User.updateAuthToken(user.id, token);
 
         res.send({ user, token });
