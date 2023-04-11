@@ -17,6 +17,9 @@ router.get('/users', authMiddleware, async (req, res) => {
 // Get a user by id
 router.get('/:id', authMiddleware, async (req, res) => {
     try {
+        if (typeof req.params.id === 'undefined') {
+            return res.status(400).send('Bad Request: ID parameter is missing');
+        }
         const user = await User.findById(req.params.id);
         if (!user) {
             return res.status(404).send('User not found');

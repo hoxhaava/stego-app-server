@@ -9,6 +9,9 @@ const authMiddleware = async (req, res, next) => {
         }
         const token = authHeader.replace('Bearer ', '');
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!Number.isInteger(decoded.userId)) {
+            return res.status(401).json({ error: 'Invalid user ID.' });
+        }
         const user = await User.findById(decoded.userId);
         console.log(user)
         if (!user || user.authToken !== token) {
