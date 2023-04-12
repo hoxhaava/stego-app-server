@@ -79,7 +79,7 @@ User.findById = async (userId) => {
 User.deleteToken = async (userId) => {
     const connection = await pool.getConnection();
     const [rows, fields] = await connection.execute(
-        'UPDATE users SET auth_token = NULL WHERE id = ?', [userId]
+        'UPDATE users SET auth_token = NULL WHERE id = ?', [userId || null]
     );
     connection.release();
 };
@@ -97,6 +97,5 @@ User.updateAuthToken = async (id, token) => {
 
     return rows.affectedRows === 1;
 };
-
 
 module.exports = User;

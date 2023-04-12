@@ -29,6 +29,6 @@ app.post('/signin', authRoutes);
 app.post('/logout/:id', authRoutes)
 
 // Start server
-app.listen(3000, () => {
+module.exports = app.listen(3000, () => {
     console.log('Server listening on port 3000');
 });
